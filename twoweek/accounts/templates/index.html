@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+<link rel="stylesheet" href="{% static 'style.css'%}">
+{% endblock %}
+{% block content %}
+<h1></h1>
+
+  <p>Welcome to the<p><em>Website of our design company </em>, We are very glad to see you here</p>
+
+<h2>Dynamic content</h2>
+
+ <p>Application on the Designer</p>
+ {% if application_list %}
+ <table class="table align-middle table-edge table-hover table-nowrap mb-0">
+   <thead class="thead-light">
+       <tr>
+           <th>
+               <a href="javascript: void(0);" class="text-muted list-sort" data-sort="name">
+                   Название
+               </a>
+           </th>
+           <th>
+               <a href="javascript: void(0);" class="text-muted list-sort" data-sort="email">
+                   Описание
+               </a>
+           </th>
+           <th>
+               <a href="javascript: void(0);" class="text-muted list-sort" data-sort="id">
+                   Категория
+               </a>
+           </th>
+           <th>
+               <a href="javascript: void(0);" class="text-muted list-sort" data-sort="date">
+                   Статус
+               </a>
+           </th>
+           {% if user.is_staff %}
+           <th>
+               <a href="javascript: void(0);" class="text-muted list-sort" data-sort="status">
+                   Имя пользователя
+               </a>
+           </th>
+           {% endif %}
+           <th class="w-150px min-w-150px">
+               <a href="javascript: void(0);" class="text-muted list-sort" data-sort="status">
+                   Дата создания
+               </a>
+           </th>
+       </tr>
+   </thead>
+   <tbody class="list">
+     {% for application in application_list %}
+       <tr>
+           <td>
+               <div class="avatar avatar-circle avatar-xs me-2">
+                   <img src="../accounts{{ application.img.url }}" alt="..." class="avatar-img" width="30" height="30">
+               </div>
+           <a class="name fw-bold" href="{{ application.get_absolute_url }}">{{ application.title }}</a>
+           </td>
+           <td class="email">{{ application.desc }}</td>
+           <td class="category">{{ application.get_category_display }}</td>
+           <td class="status">{{ application.get_status_display }}<span class="legend-circle bg-success"></span></td>
+           {% if user.is_staff %}
+             <td class="name fw-bold">{{ application.user.get_username }}</td>
+           {% endif %}
+           <td class="date" data-signed="1648252800">03.26.2022</td>
+       </tr>
+       {% endfor %}
+     </tbody>
+ </table>
+ {% endif %}
+ {% if request.user.is_authenticated %}
+ <div>
+   {% if page_obj.has_previous %}
+     <a href="?page={{ page_obj.previous_page_number }}">Предыдущая страница</a>
+   {% else %}
+     <a href="#">Предыдущая страница</a>
+   {% endif %}
+   {% if page_obj.has_next %}
+     <a href="?page={{ page_obj.next_page_number }}">Следуюшая страница</a>
+   {% else %}
+     <a href="#">Следуюшая страница</a>
+   {% endif %}
+ </div>
+ {% endif %}
+
+{% endblock %}
