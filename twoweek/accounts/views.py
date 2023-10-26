@@ -8,6 +8,10 @@ from .models import Application
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse_lazy, reverse
+from PIL import Image
+from django.core.exceptions import ValidationError
+
+#views.py - файл где мы определяем функции или классы, которые обрабатывают HTTP-запросы от клиентов
 
 
 class Index(generic.ListView):
@@ -33,7 +37,7 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
-            return render(request, 'registration/register_done.html', {'new_user': new_user})
+            return render(request, 'registration/login.html', {'new_user': new_user})
 
     else:
         user_form = UserRegistrationForm()

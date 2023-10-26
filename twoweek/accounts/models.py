@@ -6,6 +6,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.urls import reverse
 
+#это файл, который используется для определения структуры и характеристик базы данных вашего веб-приложения
+
 
 # Создаем класс менеджера пользователей
 class MyUserManager(BaseUserManager):
@@ -52,7 +54,7 @@ class Category(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True, unique=True)
-    full_name = models.CharField(max_length=50, help_text="Напишите ФИО")
+    full_name = models.CharField(max_length=50,)
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=200)
     email = models.EmailField(unique=True, max_length=254)

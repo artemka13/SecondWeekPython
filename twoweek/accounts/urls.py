@@ -4,6 +4,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+#Этот файл определяет, какие действия должны быть выполнены для конкретных URL-адресов
+
 urlpatterns = [
 
     path('', include('django.contrib.auth.urls')),
